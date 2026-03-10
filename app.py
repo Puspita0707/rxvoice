@@ -182,4 +182,3 @@ if uploaded_audio is not None:
                     f,
                     file_name="prescription_voice.mp3"
                 )
-```
