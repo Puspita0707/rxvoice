@@ -1,4 +1,4 @@
-```python
+from sympy import python
 import streamlit as st
 import whisper
 import tempfile
