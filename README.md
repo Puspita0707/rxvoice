@@ -143,7 +143,4 @@ GitHub:
 https://github.com/Puspita0707
 
 ---
-
-## License
-
-This project is intended for educational and research purposes.
+BELOW IS THE DEMO LINK : https://rxvoice.streamlit.app/
