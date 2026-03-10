@@ -1,8 +1,8 @@
-from sympy import python
+```python
 import streamlit as st
 import whisper
 import tempfile
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 from audiorecorder import audiorecorder
 from gtts import gTTS
 import time
@@ -11,7 +11,6 @@ import time
 # LOAD MODELS
 # =========================
 model = whisper.load_model("base")
-translator = Translator()
 
 # =========================
 # APP HEADER
@@ -51,7 +50,6 @@ uploaded_audio = st.file_uploader("Upload Prescription Audio", type=["wav", "mp3
 # =========================
 st.subheader("Or Record Audio")
 
-# Placeholder for progressive transcription
 live_transcript_placeholder = st.empty()
 
 audio = audiorecorder("Start Recording", "Stop Recording")
@@ -73,9 +71,7 @@ if len(audio) > 0:
     transcript = result["text"]
     detected_language = result["language"]
 
-    # =========================
-    # PROGRESSIVE TRANSCRIPTION
-    # =========================
+    # Progressive live-style transcription
     words = transcript.split()
     progressive_text = ""
 
@@ -99,8 +95,9 @@ if len(audio) > 0:
     # =========================
     target_lang = lang_map[language]
 
-    translated = translator.translate(transcript, dest=target_lang)
-    translated_text = translated.text
+    translated_text = GoogleTranslator(
+        source="auto", target=target_lang
+    ).translate(transcript)
 
     st.subheader("Translated Prescription")
     st.write(translated_text)
@@ -139,7 +136,6 @@ if uploaded_audio is not None:
         transcript = result["text"]
         detected_language = result["language"]
 
-        # Progressive display
         words = transcript.split()
         progressive_text = ""
 
@@ -163,8 +159,9 @@ if uploaded_audio is not None:
         # =========================
         target_lang = lang_map[language]
 
-        translated = translator.translate(transcript, dest=target_lang)
-        translated_text = translated.text
+        translated_text = GoogleTranslator(
+            source="auto", target=target_lang
+        ).translate(transcript)
 
         st.subheader("Translated Prescription")
         st.write(translated_text)
@@ -185,3 +182,4 @@ if uploaded_audio is not None:
                     f,
                     file_name="prescription_voice.mp3"
                 )
+```
